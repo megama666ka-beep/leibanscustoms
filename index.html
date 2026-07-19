@@ -1,13 +1,856 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
-    <title>LEIBANS CUSTOMS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEIBANSCUSTOM — Reconstructed Denim</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&family=Inter:wght@300;400&display=swap');
+
+:root{
+  --bg:#0b0b0a;
+  --bg-raised:#111110;
+  --fg:#ece7dd;
+  --fg-dim:#8f8a80;
+  --indigo:#26314f;
+  --stitch:#c9a227;
+  --grey:#6f6a62;
+  --line:rgba(236,231,221,0.14);
+  --line-strong:rgba(236,231,221,0.28);
+}
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+html{scroll-behavior:smooth;}
+
+body{
+  background:var(--bg);
+  color:var(--fg);
+  font-family:'Inter', sans-serif;
+  font-weight:300;
+  overflow-x:hidden;
+}
+
+::selection{background:var(--stitch);color:#0b0b0a;}
+
+.display{
+  font-family:'Oswald', sans-serif;
+  text-transform:uppercase;
+  letter-spacing:0.02em;
+}
+
+.mono{
+  font-family:'Space Mono', monospace;
+  text-transform:uppercase;
+  letter-spacing:0.12em;
+  font-size:11px;
+}
+
+a{color:inherit;text-decoration:none;}
+
+/* ---------- NAV ---------- */
+header{
+  position:fixed;
+  top:0;left:0;right:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:22px 32px;
+  mix-blend-mode:difference;
+}
+.logo{
+  font-family:'Oswald', sans-serif;
+  font-weight:600;
+  font-size:18px;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+}
+nav ul{
+  list-style:none;
+  display:flex;
+  gap:28px;
+}
+nav a{
+  font-family:'Space Mono', monospace;
+  font-size:11px;
+  letter-spacing:0.14em;
+  text-transform:uppercase;
+  opacity:0.85;
+  transition:opacity 0.2s;
+}
+nav a:hover{opacity:1;border-bottom:1px solid var(--stitch);}
+@media(max-width:640px){
+  nav ul{gap:14px;}
+  nav a{font-size:9px;}
+}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;
+  min-height:100svh;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:0 32px 70px;
+  border-bottom:1px solid var(--line);
+}
+.hero-bg{
+  position:absolute;
+  inset:0;
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  opacity:0.5;
+}
+.hero-bg span{border-right:1px solid var(--line);}
+.hero-bg span:last-child{border-right:none;}
+
+.hero-eyebrow{
+  position:relative;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:26px;
+  color:var(--fg-dim);
+}
+.hero-eyebrow .dot{
+  width:6px;height:6px;background:var(--stitch);
+  border-radius:50%;
+}
+
+h1.hero-title{
+  position:relative;
+  font-size:clamp(52px,11vw,168px);
+  line-height:0.86;
+  font-weight:600;
+  max-width:1200px;
+}
+h1.hero-title em{
+  font-style:normal;
+  color:var(--fg-dim);
+  -webkit-text-stroke:1px var(--fg-dim);
+  color:transparent;
+}
+
+.hero-foot{
+  position:relative;
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-top:44px;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.hero-desc{
+  max-width:360px;
+  font-size:14px;
+  line-height:1.6;
+  color:var(--fg-dim);
+  font-weight:300;
+}
+.hero-scroll{
+  font-family:'Space Mono', monospace;
+  font-size:11px;
+  letter-spacing:0.14em;
+  color:var(--fg-dim);
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.hero-scroll::after{
+  content:'';
+  width:34px;height:1px;
+  background:var(--fg-dim);
+  animation:scrollpulse 1.8s ease-in-out infinite;
+}
+@keyframes scrollpulse{
+  0%,100%{transform:scaleX(1);opacity:0.6;}
+  50%{transform:scaleX(1.6);opacity:1;}
+}
+
+/* ---------- SECTION SHARED ---------- */
+section{
+  padding:120px 32px;
+  border-bottom:1px solid var(--line);
+  position:relative;
+}
+.section-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:64px;
+  gap:24px;
+  flex-wrap:wrap;
+}
+.section-tag{
+  color:var(--stitch);
+  margin-bottom:14px;
+  display:block;
+}
+.section-title{
+  font-size:clamp(30px,4.4vw,58px);
+  font-weight:600;
+  line-height:1;
+  max-width:760px;
+}
+.section-note{
+  max-width:280px;
+  font-size:13px;
+  color:var(--fg-dim);
+  line-height:1.7;
+  text-align:right;
+}
+@media(max-width:760px){
+  .section-note{text-align:left;}
+}
+
+/* ---------- MANIFESTO ---------- */
+.manifesto{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+}
+.manifesto p{
+  font-size:22px;
+  line-height:1.5;
+  font-weight:300;
+  color:var(--fg);
+}
+.manifesto p + p{margin-top:26px;color:var(--fg-dim);font-size:16px;}
+.manifesto-stats{
+  display:flex;
+  flex-direction:column;
+  gap:0;
+  border-top:1px solid var(--line);
+}
+.stat{
+  display:flex;
+  justify-content:space-between;
+  padding:20px 0;
+  border-bottom:1px solid var(--line);
+}
+.stat b{
+  font-family:'Oswald',sans-serif;
+  font-size:28px;
+  font-weight:500;
+}
+.stat span{color:var(--fg-dim);max-width:200px;text-align:right;font-size:12px;line-height:1.5;}
+@media(max-width:820px){
+  .manifesto{grid-template-columns:1fr;}
+}
+
+/* ---------- CONSTRUCTOR ---------- */
+.constructor-wrap{
+  display:grid;
+  grid-template-columns:0.9fr 1.1fr;
+  gap:70px;
+  align-items:start;
+}
+@media(max-width:980px){
+  .constructor-wrap{grid-template-columns:1fr;}
+}
+
+.silhouette-tabs{
+  display:flex;
+  gap:0;
+  margin-bottom:36px;
+  border:1px solid var(--line-strong);
+}
+.silhouette-tabs button{
+  flex:1;
+  background:none;
+  border:none;
+  color:var(--fg-dim);
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:14px 6px;
+  cursor:pointer;
+  border-right:1px solid var(--line-strong);
+  transition:all 0.2s;
+}
+.silhouette-tabs button:last-child{border-right:none;}
+.silhouette-tabs button.active{
+  background:var(--fg);
+  color:var(--bg);
+}
+.silhouette-tabs button:hover:not(.active){color:var(--fg);}
+
+.stage{
+  position:relative;
+  background:radial-gradient(ellipse at 50% 20%, #16150f 0%, #0b0b0a 70%);
+  border:1px solid var(--line);
+  display:flex;
+  justify-content:center;
+  padding:30px 10px 10px;
+}
+.stage svg{width:100%;max-width:340px;height:auto;display:block;}
+.zone{cursor:pointer;transition:filter 0.15s, opacity 0.15s;}
+.zone:hover{filter:brightness(1.25);}
+.zone.selected{
+  outline:none;
+}
+.zone-outline{
+  fill:none;
+  stroke:var(--stitch);
+  stroke-width:1.4;
+  stroke-dasharray:3 4;
+  pointer-events:none;
+}
+
+.pointer-label{
+  position:absolute;
+  font-family:'Space Mono',monospace;
+  font-size:9px;
+  letter-spacing:0.1em;
+  color:var(--fg-dim);
+  bottom:14px;
+  left:14px;
+}
+
+.editing-line{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.editing-line .now{
+  color:var(--fg-dim);
+}
+.editing-line .now b{
+  color:var(--fg);
+  font-weight:500;
+}
+.editing-line .count{
+  color:var(--stitch);
+}
+
+.panel-right{
+  display:flex;
+  flex-direction:column;
+  gap:38px;
+}
+
+.swatch-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+.swatch{
+  aspect-ratio:1;
+  border:1px solid var(--line-strong);
+  cursor:pointer;
+  position:relative;
+  transition:transform 0.15s;
+}
+.swatch:hover{transform:translateY(-3px);}
+.swatch.active{
+  outline:2px solid var(--stitch);
+  outline-offset:2px;
+}
+.swatch small{
+  position:absolute;
+  bottom:4px;left:5px;
+  font-family:'Space Mono',monospace;
+  font-size:8px;
+  letter-spacing:0.06em;
+  color:rgba(255,255,255,0.75);
+  mix-blend-mode:difference;
+}
+
+.actions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+.btn{
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  padding:15px 22px;
+  border:1px solid var(--fg);
+  background:none;
+  color:var(--fg);
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.btn:hover{background:var(--fg);color:var(--bg);}
+.btn.ghost{border-color:var(--line-strong);color:var(--fg-dim);}
+.btn.ghost:hover{border-color:var(--fg);color:var(--fg);background:none;}
+
+.tag-list{
+  border-top:1px solid var(--line);
+}
+.tag-row{
+  display:flex;
+  justify-content:space-between;
+  padding:11px 0;
+  border-bottom:1px solid var(--line);
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  letter-spacing:0.06em;
+}
+.tag-row .src{color:var(--stitch);}
+.tag-row .zone-name{color:var(--fg-dim);flex:1;padding:0 14px;}
+.tag-row .swatch-dot{
+  width:12px;height:12px;
+  border:1px solid var(--line-strong);
+  display:inline-block;
+  margin-left:8px;
+  vertical-align:middle;
+}
+
+/* ---------- LOOKBOOK ---------- */
+.lookbook-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--line);
+  border:1px solid var(--line);
+}
+.look{
+  aspect-ratio:3/4;
+  background:var(--bg);
+  position:relative;
+  overflow:hidden;
+}
+.look .patch{position:absolute;}
+.look .cap{
+  position:absolute;
+  bottom:0;left:0;right:0;
+  padding:14px;
+  display:flex;
+  justify-content:space-between;
+  font-family:'Space Mono',monospace;
+  font-size:10px;
+  letter-spacing:0.1em;
+  background:linear-gradient(to top, rgba(0,0,0,0.65), transparent);
+}
+@media(max-width:900px){
+  .lookbook-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* ---------- PROCESS ---------- */
+.process{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:1px;
+  background:var(--line);
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+  margin-top:60px;
+}
+.process-step{
+  background:var(--bg);
+  padding:40px 30px;
+}
+.process-step .n{
+  font-family:'Space Mono',monospace;
+  font-size:11px;
+  color:var(--stitch);
+  display:block;
+  margin-bottom:20px;
+}
+.process-step h3{
+  font-family:'Oswald',sans-serif;
+  font-size:20px;
+  font-weight:500;
+  text-transform:uppercase;
+  margin-bottom:12px;
+}
+.process-step p{
+  font-size:13px;
+  color:var(--fg-dim);
+  line-height:1.6;
+}
+@media(max-width:760px){
+  .process{grid-template-columns:1fr;}
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+  padding:80px 32px 32px;
+}
+.footer-top{
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr;
+  gap:50px;
+  margin-bottom:100px;
+}
+.footer-top h2{
+  font-family:'Oswald',sans-serif;
+  font-size:clamp(34px,5vw,64px);
+  font-weight:600;
+  line-height:1.05;
+  text-transform:uppercase;
+}
+.footer-col .mono{display:block;color:var(--fg-dim);margin-bottom:16px;}
+.footer-col ul{list-style:none;}
+.footer-col li{margin-bottom:9px;font-size:14px;}
+.footer-col a:hover{color:var(--stitch);}
+@media(max-width:760px){
+  .footer-top{grid-template-columns:1fr;gap:36px;}
+}
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  padding-top:24px;
+  border-top:1px solid var(--line);
+  color:var(--fg-dim);
+  font-size:11px;
+  font-family:'Space Mono',monospace;
+  letter-spacing:0.08em;
+  flex-wrap:wrap;
+  gap:10px;
+}
+</style>
 </head>
 <body>
-    This is a leibans customs website
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+<header>
+  <div class="logo">Leibanscustom</div>
+  <nav>
+    <ul>
+      <li><a href="#constructor">Constructor</a></li>
+      <li><a href="#archive">Archive</a></li>
+      <li><a href="#process">Process</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-bg">
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+  <div class="hero-eyebrow mono"><span class="dot"></span> Riga — Made to order</div>
+  <h1 class="hero-title display">One pair.<br><em>Many</em> pasts.</h1>
+  <div class="hero-foot">
+    <p class="hero-desc">Leibanscustom cuts down worn denim and rebuilds it into a single garment. Every pair is assembled from several donor jeans — the seams stay visible on purpose.</p>
+    <div class="hero-scroll">Scroll to build</div>
+  </div>
+</section>
+
+<section id="manifesto">
+  <div class="manifesto">
+    <div>
+      <p>We don't design denim. We reassign it. Every pair that reaches us has already lived a life — someone's knees wore through, someone's waist changed, someone let it go.</p>
+      <p>We cut what's usable from three, four, sometimes six pairs and stitch them back into one silhouette. Nothing is dyed to match. The mismatch is the point.</p>
+    </div>
+    <div class="manifesto-stats">
+      <div class="stat"><b>2–6</b><span>Donor pairs combined into a single garment, depending on silhouette</span></div>
+      <div class="stat"><b>100%</b><span>Post-consumer denim — no virgin cotton is cut for these pieces</span></div>
+      <div class="stat"><b>1/1</b><span>Every build is unrepeatable. The panel colors you choose exist once</span></div>
+      <div class="stat"><b>RIX</b><span>Cut, combined and finished by hand in our Riga workroom</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="constructor">
+  <div class="section-head">
+    <div>
+      <span class="section-tag mono">Build your own</span>
+      <h1 class="section-title display">The Constructor</h1>
+    </div>
+    <p class="section-note">Choose a silhouette, then assign a wash to each of the six source panels. Click a panel, then a swatch.</p>
+  </div>
+
+  <div class="constructor-wrap">
+    <div>
+      <div class="silhouette-tabs mono" id="tabs">
+        <button data-shape="straight" class="active">Straight</button>
+        <button data-shape="baggy">Baggy</button>
+        <button data-shape="flare">Flare</button>
+        <button data-shape="cargo">Cargo</button>
+      </div>
+
+      <div class="stage">
+        <svg viewBox="0 0 320 610" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <clipPath id="pantsClip">
+              <path id="clipPath" d=""></path>
+            </clipPath>
+          </defs>
+
+          <g clip-path="url(#pantsClip)">
+            <rect id="zone-waist" class="zone" data-zone="waist" x="0" y="0" width="320" height="95"></rect>
+            <rect id="zone-upperLeft" class="zone" data-zone="upperLeft" x="0" y="95" width="160" height="230"></rect>
+            <rect id="zone-upperRight" class="zone" data-zone="upperRight" x="160" y="95" width="160" height="230"></rect>
+            <rect id="zone-lowerLeft" class="zone" data-zone="lowerLeft" x="0" y="325" width="160" height="285"></rect>
+            <rect id="zone-lowerRight" class="zone" data-zone="lowerRight" x="160" y="325" width="160" height="285"></rect>
+            <rect id="zone-pocket" class="zone" data-zone="pocket" x="188" y="140" width="56" height="52"></rect>
+
+            <g id="cargoFlaps" style="display:none;">
+              <rect x="34" y="200" width="58" height="68" fill="rgba(0,0,0,0.32)" stroke="var(--stitch)" stroke-width="1.2" stroke-dasharray="3 3"></rect>
+              <rect x="228" y="200" width="58" height="68" fill="rgba(0,0,0,0.32)" stroke="var(--stitch)" stroke-width="1.2" stroke-dasharray="3 3"></rect>
+            </g>
+
+            <line x1="0" y1="95" x2="320" y2="95" stroke="var(--stitch)" stroke-width="1.4" stroke-dasharray="3 4" opacity="0.85"/>
+            <line x1="160" y1="95" x2="160" y2="610" stroke="var(--stitch)" stroke-width="1.4" stroke-dasharray="3 4" opacity="0.85"/>
+            <line x1="0" y1="325" x2="320" y2="325" stroke="var(--stitch)" stroke-width="1.4" stroke-dasharray="3 4" opacity="0.85"/>
+          </g>
+
+          <path id="outlinePath" class="zone-outline" d=""></path>
+        </svg>
+        <div class="pointer-label">Fig. 01 — Front construction view</div>
+      </div>
+
+      <div class="editing-line">
+        <div class="now mono">Editing <b id="editingZone">Waist</b></div>
+        <div class="count mono"><span id="sourceCount">4</span> Sources combined</div>
+      </div>
+    </div>
+
+    <div class="panel-right">
+      <div>
+        <span class="section-tag mono" style="margin-bottom:16px;display:block;">Denim archive — pick a wash</span>
+        <div class="swatch-grid" id="swatches"></div>
+      </div>
+
+      <div>
+        <span class="section-tag mono" style="margin-bottom:0;display:block;">Composition</span>
+        <div class="tag-list" id="tagList"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn" id="randomizeBtn">Randomize build</button>
+        <button class="btn ghost" id="resetBtn">Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="archive">
+  <div class="section-head">
+    <div>
+      <span class="section-tag mono">Archive</span>
+      <h1 class="section-title display">Past builds</h1>
+    </div>
+    <p class="section-note">A rotating record of finished pieces. Each was combined from separately sourced denim and will not be remade identically.</p>
+  </div>
+  <div class="lookbook-grid" id="lookbook"></div>
+</section>
+
+<section id="process">
+  <div class="section-head">
+    <div>
+      <span class="section-tag mono">How it's made</span>
+      <h1 class="section-title display">From bin to build</h1>
+    </div>
+    <p class="section-note">The same three steps for every order, whether you customize online or bring in your own pairs.</p>
+  </div>
+  <div class="process">
+    <div class="process-step">
+      <span class="n mono">Src. 01</span>
+      <h3>Source</h3>
+      <p>We pull worn jeans from reclaimed stock, sorted by wash, weight and hardware. You choose which washes go where in the constructor above.</p>
+    </div>
+    <div class="process-step">
+      <span class="n mono">Src. 02</span>
+      <h3>Deconstruct</h3>
+      <p>Panels are unpicked along the original seams. Waistbands, legs and pockets are separated and matched against your chosen silhouette.</p>
+    </div>
+    <div class="process-step">
+      <span class="n mono">Src. 03</span>
+      <h3>Rebuild</h3>
+      <p>Panels are re-sewn with contrast thread — the join stays visible. No two joins fall in the same place twice.</p>
+    </div>
+  </div>
+</section>
+
+<footer id="contact">
+  <div class="footer-top">
+    <div>
+      <h2>Send us<br>your build.</h2>
+    </div>
+    <div class="footer-col">
+      <span class="mono">Studio</span>
+      <ul>
+        <li>Riga, Latvia</li>
+        <li><a href="mailto:studio@leibanscustom.com">studio@leibanscustom.com</a></li>
+        <li>By appointment only</li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <span class="mono">Index</span>
+      <ul>
+        <li><a href="#constructor">Constructor</a></li>
+        <li><a href="#archive">Archive</a></li>
+        <li><a href="#process">Process</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Leibanscustom. Every pair is one of one.</span>
+    <span>No garment is produced until it's ordered.</span>
+  </div>
+</footer>
+
+<script>
+// ---------- silhouette outlines ----------
+const shapes = {
+  straight: "M88,20 L232,20 L256,90 L256,300 L250,590 L205,590 L202,320 L160,300 L118,320 L115,590 L70,590 L64,300 L64,90 Z",
+  baggy: "M80,20 L240,20 L270,90 L280,260 L292,590 L192,590 L195,330 L160,300 L125,330 L128,590 L28,590 L40,260 L50,90 Z",
+  flare: "M100,20 L220,20 L212,90 L192,380 L262,590 L180,590 L175,330 L160,300 L145,330 L140,590 L58,590 L128,380 L108,90 Z",
+  cargo: "M80,20 L240,20 L270,90 L278,260 L288,590 L192,590 L195,330 L160,300 L125,330 L128,590 L32,590 L42,260 L50,90 Z"
+};
+
+const zoneNames = {
+  waist: "Waist", upperLeft: "Upper left", upperRight: "Upper right",
+  lowerLeft: "Lower left", lowerRight: "Lower right", pocket: "Pocket patch"
+};
+const zoneOrder = ["waist","upperLeft","upperRight","lowerLeft","lowerRight","pocket"];
+
+const washes = [
+  { name: "Raw indigo", hex: "#26314f" },
+  { name: "Stonewash", hex: "#6f6a62" },
+  { name: "Jet black", hex: "#181816" },
+  { name: "Bleach bone", hex: "#e4dfd2" },
+  { name: "Rust oxide", hex: "#7a4b32" },
+  { name: "Acid grey", hex: "#5c6058" },
+  { name: "Mud brown", hex: "#4a3c2f" },
+  { name: "Cold blue", hex: "#3a4d68" }
+];
+
+let state = {
+  shape: "straight",
+  selectedZone: "waist",
+  colors: {
+    waist: "#26314f",
+    upperLeft: "#6f6a62",
+    upperRight: "#26314f",
+    lowerLeft: "#181816",
+    lowerRight: "#6f6a62",
+    pocket: "#7a4b32"
+  }
+};
+
+function setShape(shape){
+  state.shape = shape;
+  const d = shapes[shape];
+  document.getElementById("clipPath").setAttribute("d", d);
+  document.getElementById("outlinePath").setAttribute("d", d);
+  document.getElementById("cargoFlaps").style.display = shape === "cargo" ? "block" : "none";
+  document.querySelectorAll("#tabs button").forEach(b=>{
+    b.classList.toggle("active", b.dataset.shape === shape);
+  });
+}
+
+function renderZones(){
+  zoneOrder.forEach(z=>{
+    document.getElementById("zone-"+z).setAttribute("fill", state.colors[z]);
+  });
+}
+
+function renderSwatches(){
+  const grid = document.getElementById("swatches");
+  grid.innerHTML = "";
+  washes.forEach(w=>{
+    const div = document.createElement("div");
+    div.className = "swatch";
+    div.style.background = w.hex;
+    div.title = w.name;
+    if(state.colors[state.selectedZone] === w.hex) div.classList.add("active");
+    div.innerHTML = "<small>"+w.name+"</small>";
+    div.addEventListener("click", ()=>{
+      state.colors[state.selectedZone] = w.hex;
+      renderZones();
+      renderSwatches();
+      renderTagList();
+      renderCount();
+    });
+    grid.appendChild(div);
+  });
+}
+
+function renderTagList(){
+  const list = document.getElementById("tagList");
+  list.innerHTML = "";
+  zoneOrder.forEach((z,i)=>{
+    const row = document.createElement("div");
+    row.className = "tag-row";
+    row.innerHTML = `<span class="src">Src.0${i+1}</span><span class="zone-name">${zoneNames[z]}</span><span class="swatch-dot" style="background:${state.colors[z]}"></span>`;
+    list.appendChild(row);
+  });
+}
+
+function renderCount(){
+  const unique = new Set(Object.values(state.colors));
+  document.getElementById("sourceCount").textContent = unique.size;
+}
+
+function selectZone(zone){
+  state.selectedZone = zone;
+  document.getElementById("editingZone").textContent = zoneNames[zone];
+  renderSwatches();
+}
+
+document.querySelectorAll(".zone").forEach(el=>{
+  el.addEventListener("click", ()=> selectZone(el.dataset.zone));
+});
+
+document.querySelectorAll("#tabs button").forEach(btn=>{
+  btn.addEventListener("click", ()=> setShape(btn.dataset.shape));
+});
+
+document.getElementById("randomizeBtn").addEventListener("click", ()=>{
+  zoneOrder.forEach(z=>{
+    const w = washes[Math.floor(Math.random()*washes.length)];
+    state.colors[z] = w.hex;
+  });
+  renderZones();
+  renderSwatches();
+  renderTagList();
+  renderCount();
+});
+
+document.getElementById("resetBtn").addEventListener("click", ()=>{
+  state.colors = {
+    waist: "#26314f", upperLeft: "#6f6a62", upperRight: "#26314f",
+    lowerLeft: "#181816", lowerRight: "#6f6a62", pocket: "#7a4b32"
+  };
+  renderZones();
+  renderSwatches();
+  renderTagList();
+  renderCount();
+});
+
+setShape("straight");
+renderZones();
+renderSwatches();
+renderTagList();
+renderCount();
+selectZone("waist");
+
+// ---------- lookbook placeholder tiles ----------
+const lookCombos = [
+  ["#26314f","#181816","#6f6a62"],
+  ["#7a4b32","#26314f","#e4dfd2"],
+  ["#181816","#5c6058","#3a4d68"],
+  ["#e4dfd2","#4a3c2f","#26314f"],
+  ["#6f6a62","#181816","#7a4b32"],
+  ["#3a4d68","#26314f","#5c6058"],
+  ["#181816","#e4dfd2","#6f6a62"],
+  ["#4a3c2f","#3a4d68","#181816"]
+];
+const lookbook = document.getElementById("lookbook");
+lookCombos.forEach((combo, i)=>{
+  const look = document.createElement("div");
+  look.className = "look";
+  look.innerHTML = `
+    <div class="patch" style="top:0;left:0;width:100%;height:34%;background:${combo[0]}"></div>
+    <div class="patch" style="top:34%;left:0;width:50%;height:66%;background:${combo[1]}"></div>
+    <div class="patch" style="top:34%;left:50%;width:50%;height:66%;background:${combo[2]}"></div>
+    <div class="cap"><span>Look ${String(i+1).padStart(2,"0")}</span><span>3 sources</span></div>
+  `;
+  lookbook.appendChild(look);
+});
+</script>
+
 </body>
 </html>
