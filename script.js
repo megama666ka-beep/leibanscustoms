@@ -9,7 +9,7 @@ async function storageSet(key, value, shared){
 }
 
 /* ================= ghost words ================= */
-const ghostWords = ["jeans","jeans","denim","jeans","one of a kind","jeans"];
+const ghostWords = ["jeans","jeans","denim","jeans","one of a kind","jeans","jeans","denim","jeans","one of a kind",];
 function spawnGhosts(){
   const c = document.getElementById('ghosts');
   c.innerHTML = "";
