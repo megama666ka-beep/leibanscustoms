@@ -125,7 +125,7 @@
   #zombie-wrap{
     position:relative;
     width:300px; height:450px;
-    margin-bottom:10px;
+    margin-bottom:40px;
     transition:transform .8s cubic-bezier(.7,0,.9,1), opacity .8s ease;
     animation:breathe 6s ease-in-out infinite;
     filter:drop-shadow(0 0 40px rgba(74,92,58,0.25));
